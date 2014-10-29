@@ -3,11 +3,13 @@ ddcss
 
 Declaratively Dynamic Cascading Style Sheets
 
+Example:
+
 ```css
 
 /*
-    app: BB.App.singleton
-    mapper: current mapper
+    app: Application variable
+    obj: currently processed object
 */
 
 .project .ui {
