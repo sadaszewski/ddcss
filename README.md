@@ -9,7 +9,7 @@ Example:
 
 /*
     app: Application variable
-    obj: currently processed object
+    obj: Object currently being processed
 */
 
 .project .ui {
