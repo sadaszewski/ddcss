@@ -3,7 +3,7 @@ ddcss
 
 Declaratively Dynamic Cascading Style Sheets
 
-```javascript
+```css
 
 /*
     app: BB.App.singleton
