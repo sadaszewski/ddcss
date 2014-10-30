@@ -70,8 +70,8 @@ BB.StyleDecl.parse = function(txt, vars, ctx) {
                         if (k[0] == '@') attrs[k] = current.attrs[k];
                     }
                 }
-                selector += ' ';
                 current = {'selector': selector, 'attrs': attrs};
+                selector = '';
             } else {
                 selector += ch;
             }
@@ -81,7 +81,7 @@ BB.StyleDecl.parse = function(txt, vars, ctx) {
                 // nested selector
                 state = PARSE_SELECTOR;
                 i--;
-                selector += key;
+                selector = key;
                 key = '';
             } else if (key.length == 0 && (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n')) {
                 // ignore
@@ -92,8 +92,16 @@ BB.StyleDecl.parse = function(txt, vars, ctx) {
                 if (Q.length == 0) {
                     throw Error('Mismatched brackets.');
                 }
-                P.unshift(current);
-                current = Q.pop();
+                var L = current.selector.split(',');
+                var parent = Q.pop();
+                var parentSel = '';
+                if (parent !== undefined) {
+                    parentSel = parent.selector;
+                }
+                for (var k in L) {
+                    P.unshift({'selector': parentSel + ' ' + L[k], 'attrs': current.attrs})
+                }
+                current = parent;
                 if (current !== undefined) {
                     selector = current.selector;
                 } else {
